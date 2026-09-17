@@ -10,12 +10,12 @@ from django.utils import timezone
 
 class Room(models.Model):
     id = models.UUIDField(default = uuid.uuid4,primary_key=True,editable=False)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    users = models.ManyToManyField(User)
     name = models.CharField(max_length=100 , unique = True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user} and {self.name}"
+        return f"{self.name}"
 class Message(models.Model):
     id = models.UUIDField(default = uuid.uuid4 , primary_key=True, editable=False)
     user = models.ForeignKey(User,on_delete=models.CASCADE)
