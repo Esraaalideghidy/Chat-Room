@@ -4,15 +4,21 @@ from .models import Room,Message
 
 
 class RoomSerializer(serializers.ModelSerializer):
-    user_name = serializers.CharField(source='user.username')
+    user = serializers.SerializerMethodField()
     class Meta:
         model = Room
-        fields = ['id','user_name','name','created_at']
+        fields = ['id','user','name','created_at']
+
+    def get_user(self,obj : Room):
+        return obj.user.username if obj.user else None
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    user_name = serializers.CharField(source='user.username')
+    user = serializers.SerializerMethodField()
 
     class Meta:
         model = Message
-        fields = ['id','user_name','room','content','created_at']
+        fields = ['id','user','room','content','created_at']
+
+    def get_user(self,obj : Room):
+        return obj.user.username if obj.user else None

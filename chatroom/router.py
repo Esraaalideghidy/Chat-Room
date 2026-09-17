@@ -1,5 +1,7 @@
-from django.urls import re_path
+from django.urls import path
+
+from chatroom.consumer import ChatConsumer
 
 websocket_urlpatterns = [
-    # هنا ستوضع روابط غرف الشات الخاصة بالـ WebSockets لاحقاً
+    path(r'ws/chat/<uuid:room_id>/', ChatConsumer.as_asgi()),
 ]
